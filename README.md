@@ -54,4 +54,4 @@ Contributions, ideas, and feedback are welcome. As the project is in its early s
 
 ## License
 
-Orbit Panel is licensed under the [GNU General Public License v2.0](LICENSE).
+Orbit Panel is licensed under the [GNU General Public License v3.0](LICENSE).
