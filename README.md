@@ -4,14 +4,14 @@ A desktop panel and dock for Linux, written in **Rust** with **GTK4** and fully 
 
 Orbit Panel is a ground-up rewrite of an existing panel/dock setup built on [EWW](https://github.com/elkowar/eww). The goal is to keep the flexibility of CSS-based styling while gaining the performance, type safety, and maintainability of a native Rust application.
 
-> **Status:** early development. Nothing is usable yet — APIs, configuration format, and features are all subject to change.
+> **Status:** early development. The panel and dock run on X11 and Wayland with a clock, an app-menu button and launchers; most modules are still to come. APIs, configuration format, and features are all subject to change.
 
 ## Goals
 
 - **Native and lightweight** — a single Rust binary, no scripting runtime or polling shell scripts.
 - **CSS-first theming** — the entire look and feel is defined in a user stylesheet, with live reload.
 - **Panel + dock** — a top/bottom panel and an application dock, both anchored to screen edges.
-- **Wayland-native** — built on the layer-shell protocol via `gtk4-layer-shell`.
+- **X11 and Wayland** — a backend abstraction: EWMH dock hints and struts on X11 (tested on bspwm), the layer-shell protocol via `gtk4-layer-shell` on Wayland.
 - **Easy migration from EWW** — familiar concepts and styling for users coming from an EWW-based setup.
 
 ## Planned features
@@ -39,14 +39,46 @@ Orbit Panel is a ground-up rewrite of an existing panel/dock setup built on [EWW
 
 ## Building
 
-> Build instructions will be added once the initial scaffold lands.
+Requirements:
 
-Expected requirements:
+- Rust (stable, 1.88+) and Cargo
+- GTK 4.12+ development files
+- `gtk4-layer-shell` development files
 
-- Rust (stable) and Cargo
-- GTK4 development libraries
-- `gtk4-layer-shell` development libraries
-- A Wayland compositor that supports the `wlr-layer-shell` protocol
+On Debian/Ubuntu:
+
+```sh
+sudo apt install libgtk-4-dev libgtk4-layer-shell-dev
+```
+
+Then:
+
+```sh
+cargo build --release
+./target/release/orbit
+```
+
+## Configuration
+
+Orbit reads `~/.config/orbit/config.yaml` (or the path given with `--config`).
+Every key is optional; see [`examples/config.yaml`](examples/config.yaml) for
+all of them.
+
+Styling goes in `~/.config/orbit/style.css`, which is applied on top of the
+[built-in theme](data/style.css) and reloaded automatically when saved.
+
+On X11 the panel and dock reserve their space through `_NET_WM_STRUT_PARTIAL`,
+so window-manager padding such as bspwm's `left_padding`/`top_padding` is not
+needed. Set `reserve: false` to disable this.
+
+## Project layout
+
+| Crate                     | Purpose                                                    |
+| ------------------------- | ---------------------------------------------------------- |
+| `orbit-core`              | Configuration, CSS loading, display-backend abstraction    |
+| `orbit-backend-x11`       | X11 backend: EWMH dock type, struts and positioning        |
+| `orbit-backend-wayland`   | Wayland backend: layer-shell                               |
+| `orbit`                   | The binary: panel, dock and widgets                        |
 
 ## Contributing
 

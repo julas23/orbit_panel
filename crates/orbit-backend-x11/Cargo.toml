@@ -1,0 +1,17 @@
+[package]
+name = "orbit-backend-x11"
+description = "X11 (EWMH) display backend for Orbit Panel"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+orbit-core.workspace = true
+gtk.workspace = true
+gdk4-x11.workspace = true
+x11rb.workspace = true
+anyhow.workspace = true
+log.workspace = true

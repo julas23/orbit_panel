@@ -1,0 +1,78 @@
+/* Orbit built-in theme.
+ *
+ * Override any of this in ~/.config/orbit/style.css; that file is loaded on
+ * top of this one and reloaded automatically when it changes.
+ */
+
+@define-color orbit_bg      rgba(0, 0, 0, 0.55);
+@define-color orbit_fg      #d8dee9;
+@define-color orbit_muted   #6b7280;
+@define-color orbit_accent  #4682b4;
+@define-color orbit_border  rgba(76, 86, 106, 0.55);
+
+/* The windows themselves are transparent; the visible shape is drawn by
+ * .panel and .dock so it can have rounded corners and translucency. */
+window.orbit {
+  background: transparent;
+  color: @orbit_fg;
+}
+
+window.orbit button {
+  background: none;
+  border: none;
+  box-shadow: none;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ------------------------------------------------------------------ panel */
+.panel {
+  background-color: @orbit_bg;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 8px;
+}
+
+.panel .menu {
+  color: @orbit_accent;
+  padding: 4px;
+  border-radius: 6px;
+}
+.panel .menu:hover {
+  background-color: alpha(@orbit_accent, 0.25);
+}
+
+.card {
+  border: 1px solid @orbit_border;
+  border-radius: 5px;
+}
+
+.clock {
+  padding: 4px 2px;
+  margin: 2px 0;
+}
+.clock .time    { font-size: 36px; font-weight: bold; }
+.clock .seconds { font-size: 16px; font-weight: bold; color: @orbit_muted; padding-bottom: 6px; }
+.clock .date    { font-size: 20px; color: @orbit_muted; }
+
+/* ------------------------------------------------------------------- dock */
+.dock {
+  padding: 2px 6px;
+}
+
+.dock .app {
+  padding: 2px;
+  margin: 1px;
+  border-radius: 6px;
+}
+.dock .app:hover {
+  background-color: alpha(@orbit_accent, 0.30);
+}
+
+.dock .separator {
+  background-color: @orbit_muted;
+  min-width: 2px;
+  min-height: 2px;
+  margin: 6px 10px;
+  border-radius: 1px;
+}

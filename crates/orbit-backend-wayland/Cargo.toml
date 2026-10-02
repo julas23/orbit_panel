@@ -1,0 +1,16 @@
+[package]
+name = "orbit-backend-wayland"
+description = "Wayland (layer-shell) display backend for Orbit Panel"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+orbit-core.workspace = true
+gtk.workspace = true
+gtk4-layer-shell.workspace = true
+anyhow.workspace = true
+log.workspace = true
